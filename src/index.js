@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
       <h1>Read by Marinus</h1>
-      <h2>Fetch the list from Goodsreads (XML) convert it via Azure to JSON, trim it via Liquid, display in REACT</h2>
+      <h2>Fetch the list from Goodsreads (XML) convert it via Azure to JSON, trim it via Liquid, display in REACT.</h2>
 
       {/* Fetch data from API */}
       <div>
