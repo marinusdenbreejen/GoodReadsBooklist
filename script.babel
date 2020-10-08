@@ -1,0 +1,57 @@
+class BookList extends React.Component {
+  render() {
+    const books = this.props.books.filter(filterNoCover);
+    const formattedBooks = books.map((book) =>
+        <div className="book" key={book.title}>
+        <img src={book.bookimageURL} width="100%" alt="bookimage" />
+                <div className="details">
+                  {book.title}
+                  <p>👤: {book.author}</p>
+                </div>
+       </div>    
+    );
+    return(
+      <div className="books">{formattedBooks}</div>
+    );
+  }
+}
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state={
+      books:[]
+    }
+  var myUrl = "https://prod-188.westeurope.logic.azure.com:443/workflows/5e69d4e4f7b64bf3852aecfa108bf47a/triggers/request/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Frequest%2Frun&sv=1.0&sig=roVLAPGLufhOF3FZsznpgv6Bgqznw5Br86zruZ8s4xU";
+  fetch(myUrl)
+    .then((response) => response.json())
+    .then((json) => this.setState({books: json}));
+    
+    
+  }
+  
+  render() {
+    console.log(this.state.books[0])
+    return (
+        <div className="App">
+      <h1>Books read by Marinus</h1>
+      <h2>
+        Fetch the list from Goodsreads (XML) convert it via Azure to JSON, trim
+        it via Liquid, display in REACT
+      </h2>
+        <BookList books={this.state.books}/>
+            
+    </div>
+    );
+  }
+}
+
+function filterNoCover(book) {
+  return !book.bookimageURL.includes("nophoto");
+}
+
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
